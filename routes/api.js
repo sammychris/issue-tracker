@@ -80,7 +80,9 @@ module.exports = function (app) {
     
     .delete(function (req, res){
       let project = req.params.project;
-      let _id = req.body._id.trim();
+      let _id = req.body._id;
+      if(!_id) return res.send('_id error');
+      _id = _id.trim();
       MongoClient.connect(CONNECTION_STRING, (err, db) => {
         expect(err).to.equal(null);
         db.collection(project).deleteOne({_id: new ObjectId(_id)}, (err, data) => {
