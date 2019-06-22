@@ -19,18 +19,7 @@ app.use(cors({origin: '*'})); //For FCC testing purposes only
 require('dotenv').config(); //setting the enviromental variable
 
 
-app.use(helmet({
-  frameguard: {              // configure
-    action: 'deny'
-  },
-  contentSecurityPolicy: {   // enable and configure
-   directives: {
-     defaultSrc: ["'self'"],
-     styleSrc: ['style.com'],
-   }
-  },
- dnsPrefetchControl: false   // disable
-}))
+app.use(helmet.xssFilter());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
